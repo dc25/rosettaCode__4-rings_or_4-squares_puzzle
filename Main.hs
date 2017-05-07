@@ -9,8 +9,8 @@ combs :: (Eq a) => Int -> [a] -> [[a]]
 combs 0 _ = [[]]
 combs n xs = [ x:xr | x <- xs, xr <- combs (n-1) xs ]
 
-checkSums :: [Int] -> Bool
-checkSums xs = 
+ringCheck :: [Int] -> Bool
+ringCheck xs = 
     let x0 = xs !! 0
         x1 = xs !! 1
         x2 = xs !! 2
@@ -29,7 +29,7 @@ fourRings low high allowRepeats verbose = do
                      then combs 7 [low..high]
                      else perms [low..high]
 
-        solutions = filter checkSums candidates
+        solutions = filter ringCheck candidates
 
     when verbose $ mapM_ print solutions
 
