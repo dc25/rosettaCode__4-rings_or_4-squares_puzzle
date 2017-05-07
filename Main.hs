@@ -5,9 +5,9 @@ perms :: (Eq a) => [a] -> [[a]]
 perms [] = [[]]
 perms xs = [ x:xr | x <- xs, xr <- perms (xs\\[x]) ]
 
-powerSet :: (Eq a) => Int -> [a] -> [[a]]
-powerSet 0 _ = [[]]
-powerSet n xs = [ x:xr | x <- xs, xr <- powerSet (n-1) xs ]
+combs :: (Eq a) => Int -> [a] -> [[a]]
+combs 0 _ = [[]]
+combs n xs = [ x:xr | x <- xs, xr <- combs (n-1) xs ]
 
 checkSums :: [Int] -> Bool
 checkSums xs = 
@@ -26,7 +26,7 @@ checkSums xs =
 fourRings :: Int -> Int -> Bool -> Bool -> IO ()
 fourRings low high allowRepeats verbose = do
     let candidates = if allowRepeats
-                     then powerSet 7 [low..high]
+                     then combs 7 [low..high]
                      else perms [low..high]
 
         solutions = filter checkSums candidates
